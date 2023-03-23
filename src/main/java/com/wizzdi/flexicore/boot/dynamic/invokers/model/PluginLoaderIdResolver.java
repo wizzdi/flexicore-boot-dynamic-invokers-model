@@ -64,6 +64,7 @@ public class PluginLoaderIdResolver extends TypeIdResolverBase implements Applic
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		if(init.compareAndSet(false,true)){
 			classLoaders.addAll(applicationContext.getBean(FlexiCorePluginManager.class).getStartedPlugins().stream().map(f->f.getPluginClassLoader()).collect(Collectors.toList()));
+			classLoaders.add(PluginLoaderIdResolver.class.getClassLoader());
 		}
 	}
 }
